@@ -1,4 +1,4 @@
-﻿namespace ProgramowanieAplikacjiAspDotNetCore.Models
+﻿namespace AspDotNetAppsProgramming.Models
 {
     public class ItemModel
     {

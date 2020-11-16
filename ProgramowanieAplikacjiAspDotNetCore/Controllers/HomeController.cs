@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using AspDotNetAppsProgramming.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ProgramowanieAplikacjiAspDotNetCore.Models;
 
-namespace ProgramowanieAplikacjiAspDotNetCore.Controllers
+namespace AspDotNetAppsProgramming.Controllers
 {
     public class HomeController : Controller
     {

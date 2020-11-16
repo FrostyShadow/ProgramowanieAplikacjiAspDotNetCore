@@ -1,6 +1,4 @@
-using System;
-
-namespace ProgramowanieAplikacjiAspDotNetCore.Models
+namespace AspDotNetAppsProgramming.Models
 {
     public class ErrorViewModel
     {

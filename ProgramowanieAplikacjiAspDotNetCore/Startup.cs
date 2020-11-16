@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AspDotNetAppsProgramming.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace ProgramowanieAplikacjiAspDotNetCore
+namespace AspDotNetAppsProgramming
 {
     public class Startup
     {
@@ -23,6 +20,10 @@ namespace ProgramowanieAplikacjiAspDotNetCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ExchangesDbContext>(options =>
+            {
+                options.UseSqlServer(@"Server=(localdb)\ProjectsV13;Database=ExchangesDb;Trusted_Connection=True;");
+            });
             services.AddControllersWithViews();
         }
 

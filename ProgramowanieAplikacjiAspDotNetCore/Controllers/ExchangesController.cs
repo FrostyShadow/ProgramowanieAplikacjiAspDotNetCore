@@ -1,14 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AspDotNetAppsProgramming.Entities;
+using AspDotNetAppsProgramming.Models;
 using Microsoft.AspNetCore.Mvc;
-using ProgramowanieAplikacjiAspDotNetCore.Models;
 
-namespace ProgramowanieAplikacjiAspDotNetCore.Controllers
+namespace AspDotNetAppsProgramming.Controllers
 {
     public class ExchangesController : Controller
     {
+        private readonly ExchangesDbContext _context;
+
+        public ExchangesController(ExchangesDbContext context)
+        {
+            _context = context;
+        }
+
+
         public IActionResult Show()
         {
             return View();
@@ -24,17 +29,22 @@ namespace ProgramowanieAplikacjiAspDotNetCore.Controllers
         public IActionResult Add(ItemModel itemModel)
         {
 
-            var viewModel = new AddNewItemConfirmationModel
+            var entity = new ItemEntity
             {
-                Id = 1,
-                Name = itemModel.Name
+                Name = itemModel.Name,
+                Description = itemModel.Description,
+                IsVisible = itemModel.IsVisible
             };
-            return RedirectToAction("AddConfirmation");
+            _context.Items.Add(entity);
+            _context.SaveChanges();
+
+            return RedirectToAction("AddConfirmation", new { itemId = entity.Id });
         }
 
-        public IActionResult AddConfirmation()
+        [HttpGet]
+        public IActionResult AddConfirmation(int itemId)
         {
-            return View();
+            return View(itemId);
         }
     }
 }
