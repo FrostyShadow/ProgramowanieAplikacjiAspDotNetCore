@@ -1,4 +1,5 @@
-﻿using AspDotNetAppsProgramming.Entities;
+﻿using System.Linq;
+using AspDotNetAppsProgramming.Entities;
 using AspDotNetAppsProgramming.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,8 @@ namespace AspDotNetAppsProgramming.Controllers
 
         public IActionResult Show()
         {
-            return View();
+            var items = _context.Items.ToList();
+            return View(items);
         }
 
         [HttpGet]
@@ -45,6 +47,43 @@ namespace AspDotNetAppsProgramming.Controllers
         public IActionResult AddConfirmation(int itemId)
         {
             return View(itemId);
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var item = _context.Items.FirstOrDefault(i => i.Id == id);
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            _context.Items.Remove(item);
+            _context.SaveChanges();
+
+            return RedirectToAction("Show");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var item = _context.Items.FirstOrDefault(i => i.Id == id);
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            return View(item);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ItemEntity itemEntity)
+        {
+            _context.Items.Update(itemEntity);
+            _context.SaveChanges();
+            return RedirectToAction("Show");
         }
     }
 }
