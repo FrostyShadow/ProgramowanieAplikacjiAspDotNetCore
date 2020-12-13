@@ -14,7 +14,7 @@ namespace AspDotNetAppsProgramming.Controllers
             _context = context;
         }
 
-
+        [HttpGet]
         public IActionResult Show()
         {
             var items = _context.Items.ToList();
